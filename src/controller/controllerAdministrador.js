@@ -1,3 +1,5 @@
+// teste
+
 import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
 import administradorDao from '../model/DAO/administradores.js';
 
