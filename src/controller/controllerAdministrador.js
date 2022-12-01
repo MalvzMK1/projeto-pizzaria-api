@@ -1,7 +1,7 @@
 import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
 import administradorDao from '../model/DAO/administradores.js';
 
-// funcao para gerar um novo registro
+// funcao para gerar um novo registro no banco de dados
 const novoAdministrador = async (administrador) => {
     
     // validação de campos obrigatórios
