@@ -3,7 +3,7 @@
 * Autor: Larissa Nunes
 * Versão: 1.0
 * Data criação: 13/10/2022
-* Data modificação: 
+* Data modificação: 01/12/2022
 ****************************************************************************************************/
 
 export const MESSAGE_ERROR = {

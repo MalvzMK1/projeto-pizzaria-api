@@ -1,3 +1,4 @@
+
 -- CreateTable
 CREATE TABLE `teste` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
