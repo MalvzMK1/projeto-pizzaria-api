@@ -3,7 +3,7 @@
  * Documentation - EN
  *
  * Objective: Create an API to consume the database and manipulate informations
- * Authors: Larissa Nunes Vaz, Matheus Alves de Oliveira
+ * Authors: Larissa Nunes Vaz Alves de Oliveira, Matheus Alves de Oliveira
  * Version: 1.0.22
  * Creation date: 17/11/2022
  * Modification date: 01/12/2022
@@ -13,7 +13,7 @@
  * Documentação - PT-br
  *
  * Objetivo: Criar uma API para consumir o banco de dados e manipular informações
- * Autores: Larissa Nunes Vaz, Matheus Alves de Oliveira
+ * Autores: Larissa Nunes Vaz Alves de Oliveira, Matheus Alves de Oliveira
  * Versão: 1.0.22
  * Data de Criação: 17/11/2022
  * Data de Modificação: 01/12/2022
