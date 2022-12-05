@@ -22,8 +22,8 @@
 
 import express from 'express';
 import cors from 'cors';
-import { MESSAGE_ERROR, MESSAGE_SUCESS } from './modules/config';
-import controllerProduto from './controller/controllerProduto';
+import { MESSAGE_ERROR } from './modules/config.js';
+import controllerProduto from './controller/controllerProduto.js';
 // import controllerAdministrador from './controller/controllerAdministrador';
 
 const app = express();

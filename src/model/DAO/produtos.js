@@ -6,16 +6,12 @@
 * Data modificação: 01/12/2022
 *************************************************************************************************** */
 
-// import da classe pismaClient, responsável pelas interações com o BD
-// import PrismaClient from '@prisma/client';
 import { PrismaClient } from '@prisma/client';
 
-// função para inserir um novo registro do BD
+const prisma = new PrismaClient();
+
 const insertProduto = async (produto) => {
   try {
-    // instancia da classe PrismaClient
-    const prisma = new PrismaClient();
-
     const sql = `insert into tbl_produto (
         nome,
         imagem,
@@ -34,7 +30,6 @@ const insertProduto = async (produto) => {
             )`;
 
     console.log(sql);
-    // $executeRawUnsafe permite encaminhar uma variavel contendo o script
     const result = await prisma.$executeRawUnsafe(sql);
     console.log('teste', result);
     if (result) {
@@ -47,12 +42,8 @@ const insertProduto = async (produto) => {
   }
 };
 
-// função para atualizar um registro no BD
 const updateProduto = async (produto) => {
   try {
-    // instancia da classe PrismaClient
-    const prisma = new PrismaClient();
-
     const sql = `update tbl_produto set
          nome = '${produto.nome}',
          imagem = '${produto.imagem}',
@@ -62,7 +53,6 @@ const updateProduto = async (produto) => {
          
          where id = '${produto.id}'`;
 
-    // $executeRawUnsafe permite encaminhar uma variavel contendo o script
     const result = await prisma.$executeRawUnsafe(sql);
 
     if (result) {
@@ -75,15 +65,11 @@ const updateProduto = async (produto) => {
   }
 };
 
-// função para deletar um registro no BD
 const deleteProduto = async (id) => {
   try {
-    const prisma = new PrismaClient();
-
     const sql = `delete from tbl_produto 
         where id = '${id}'`;
 
-    // $executeRawUnsafe permite encaminhar uma variavel contendo o script
     const result = await prisma.$executeRawUnsafe(sql);
     if (result) {
       return true;
@@ -94,11 +80,7 @@ const deleteProduto = async (id) => {
   }
 };
 
-// função para retornar os registros no BD
 const selectAllProdutos = async () => {
-  const prisma = new PrismaClient();
-
-  // recordset = dados vindos de um BD
   const sql = `select cast(id as float) as 
     id, 
     nome, 
@@ -109,7 +91,6 @@ const selectAllProdutos = async () => {
     id_tipo_produto
     from tbl_produto order by id desc`;
 
-  // criamos um objeto do tipo recordset para receber os dados do DB aravés do script  SQL (select)
   const rsProdutos = await prisma.$queryRawUnsafe(sql);
 
   if (rsProdutos.length > 0) {
@@ -118,10 +99,7 @@ const selectAllProdutos = async () => {
   return false;
 };
 
-// funcao para retornar apenas o registro baseado no id
 const selectByIdProduto = async (id) => {
-  const prisma = new PrismaClient();
-
   const sql = `select cast(id as float) as 
         id, 
         nome, 
@@ -133,7 +111,6 @@ const selectByIdProduto = async (id) => {
         from tbl_produto
         where id = ${id}`;
 
-  // objeto do tipo recordset para receber os dados do DB aravés do script  SQL (select)
   const rsProdutos = await prisma.$queryRawUnsafe(sql);
 
   if (rsProdutos.length > 0) {
