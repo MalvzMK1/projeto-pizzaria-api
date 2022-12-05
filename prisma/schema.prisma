@@ -13,6 +13,6 @@ datasource db {
 }
 
 model teste {
-  id Int @unique @default(autoincrement())
+  id   Int    @unique @default(autoincrement())
   nome String
 }
