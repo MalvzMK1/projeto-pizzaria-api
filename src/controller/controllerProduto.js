@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /** **************************************************************************************************
 * Objetivo: Arquivo responsável pela manipulação de dados com o BD (insert, update, delet e select)
 * Autor: Larissa Nunes e Matheus Alves

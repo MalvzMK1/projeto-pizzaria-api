@@ -1,6 +1,7 @@
+/* eslint-disable import/extensions */
 // teste
 
-import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
+import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modules/config.js';
 import administradorDao from '../model/DAO/administradores.js';
 
 // funcao para gerar um novo registro no banco de dados
