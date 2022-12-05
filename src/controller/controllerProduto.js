@@ -7,7 +7,7 @@
 ****************************************************************************************************/
 
 
-import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
+import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modules/config.js';
 import produtoDao from '../model/DAO/produtos.js';
 
 // funcao para gerar um novo produto
