@@ -29,15 +29,12 @@ const insertProduto = async (produto) => {
             '${produto.id_tipo_produto}'
             )`;
 
-    console.log(sql);
     const result = await prisma.$executeRawUnsafe(sql);
-    console.log('teste', result);
     if (result) {
       return true;
     }
     return false;
   } catch (error) {
-    console.log(error);
     return false;
   }
 };
