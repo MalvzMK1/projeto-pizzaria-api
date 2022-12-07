@@ -23,10 +23,14 @@
 
 import express from 'express';
 import cors from 'cors';
-import { MESSAGE_ERROR } from './modules/config.js';
+import { MESSAGE_ERROR } from './modulo/config.js';
 import controllerProduto from './controller/controllerProduto.js';
 import controllerIngredientes from './controller/controllerIngredientes.js';
 import controllerAdministrador from './controller/controllerAdministrador.js';
+<<<<<<< HEAD
+=======
+import controllerMensagem from './controller/controllerMensagem.js';
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 
 const app = express();
 
@@ -164,15 +168,23 @@ app.get('/v1/produto/:id', cors(), async (request, response) => {
 
 // ########################## ENDPOINTS PARA INGREDIENTES ##########################
 
+<<<<<<< HEAD
 // EndPoint para listar todos os ingredientes
+=======
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 app.get('/v1/ingredientes', cors(), async (request, response) => {
   let message;
   let statusCode;
 
+<<<<<<< HEAD
   // Retorna todos os ingredientes existentes do BD
   const dadosIngrediente = await controllerIngredientes.listarIngredientes();
 
   // valida se existe retorno
+=======
+  const dadosIngrediente = await controllerIngredientes.listarIngredientes();
+
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
   if (dadosIngrediente) {
     statusCode = 200;
     message = dadosIngrediente;
@@ -210,7 +222,10 @@ app.post('/v1/ingrediente', cors(), async (request, response) => {
   response.json(message);
 });
 
+<<<<<<< HEAD
 // endpoint para atualizar um ingrediente existente
+=======
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 app.put('/v1/ingrediente/:id', cors(), async (request, response) => {
   let statusCode;
   let message;
@@ -336,6 +351,7 @@ app.post('/v1/administrador', cors(), async (request, response) => {
   response.json(message);
 });
 
+<<<<<<< HEAD
 // endpoint para atualizar um ingrediente existente
 app.put('/v1/administrador/:id', cors(), async (request, response) => {
   let statusCode;
@@ -343,6 +359,13 @@ app.put('/v1/administrador/:id', cors(), async (request, response) => {
   let headerContentType;
 
   headerContentType = request.headers['content-type'];
+=======
+// endpoint para atualizar um administrador existente
+app.put('/v1/administrador/:id', cors(), async (request, response) => {
+  let statusCode;
+  let message;
+  const headerContentType = request.headers['content-type'];
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 
   if (headerContentType === 'application/json') {
     const dadosBody = request.body;
@@ -374,7 +397,11 @@ app.put('/v1/administrador/:id', cors(), async (request, response) => {
   response.json(message);
 });
 
+<<<<<<< HEAD
 app.delete('/v1/ingrediente/:id', cors(), async (request, response) => {
+=======
+app.delete('/v1/admministrador/:id', cors(), async (request, response) => {
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
   let statusCode;
   let message;
   const { id } = request.params;
@@ -416,6 +443,135 @@ app.get('/v1/administrador/:id', cors(), async (request, response) => {
   response.json(message);
 });
 
+<<<<<<< HEAD
+=======
+// ANDPOINT PARA AUTENTICAÇÃO
+// usuario e senha - n fazer get, fazer post
+
+// ##########################  END POINT PARA MENSAGENS ##########################
+
+app.get('/v1/mensagens', cors(), async (request, response) => {
+  let message;
+  let statusCode;
+
+  const dadosMensagens = await controllerMensagem.listarMensagens();
+
+  if (dadosMensagens) {
+    statusCode = 200;
+    message = dadosMensagens;
+  } else {
+    statusCode = 404;
+    message = MESSAGE_ERROR.NOT_FOUND_BD;
+  }
+
+  response.status(statusCode);
+  response.json(message);
+});
+
+app.post('/v1/mensagem', cors(), async (request, response) => {
+  let statusCode;
+  let message;
+  const headerContentType = request.headers['content-type'];
+
+  if (headerContentType === 'application/json') {
+    const dadosBody = request.body;
+
+    if (JSON.stringify(dadosBody) !== '{}') {
+      const novaMensagem = await controllerMensagem.novaMensagem(dadosBody);
+
+      statusCode = novaMensagem.status;
+      message = novaMensagem.message;
+    } else {
+      statusCode = 400;
+      message = MESSAGE_ERROR.EMPTY_BODY;
+    }
+  } else {
+    statusCode = 415;
+    message = MESSAGE_ERROR.CONTENT_TYPE;
+  }
+
+  response.status(statusCode);
+  response.json(message);
+});
+
+app.put('/v1/mensagem/:id', cors(), async (request, response) => {
+  let statusCode;
+  let message;
+  const headerContentType = request.headers['content-type'];
+
+  if (headerContentType === 'application/json') {
+    const dadosBody = request.body;
+
+    if (JSON.stringify(dadosBody) !== '{}') {
+      const { id } = request.params;
+
+      if (id !== '' && id !== undefined) {
+        dadosBody.id = id;
+
+        const novaMensagem = controllerMensagem.atualizarMensagem(dadosBody);
+
+        statusCode = novaMensagem.status;
+        message = novaMensagem.message;
+      } else {
+        statusCode = 400;
+        message = MESSAGE_ERROR.REQUIRED_ID;
+      }
+    } else {
+      statusCode = 400;
+      message = MESSAGE_ERROR.EMPTY_BODY;
+    }
+  } else {
+    statusCode = 415;
+    message = MESSAGE_ERROR.CONTENT_TYPE;
+  }
+
+  response.status(statusCode);
+  response.json(message);
+});
+
+app.delete('/v1/mensagem/:id', cors(), async (request, response) => {
+  let statusCode;
+  let message;
+  const { id } = request.params;
+
+  if (id !== '' && id !== undefined) {
+    const deletarMensagem = controllerMensagem.deletarMensagem(id);
+
+    statusCode = deletarMensagem.status;
+    message = deletarMensagem.message;
+  } else {
+    statusCode = 400;
+    message = MESSAGE_ERROR.REQUIRED_ID;
+  }
+  response.status(statusCode);
+  response.json(message);
+});
+
+app.get('/v1/mensagem/:id', cors(), async (request, response) => {
+  let message;
+  let statusCode;
+  const { id } = request.params;
+
+  if (id !== '' && id !== undefined) {
+    const dadosMensagens = await controllerMensagem.buscarMensagem(id);
+
+    if (dadosMensagens) {
+      statusCode = 200;
+      message = dadosMensagens;
+    } else {
+      statusCode = 400;
+      message = MESSAGE_ERROR.REQUIRED_ID;
+    }
+  } else {
+    statusCode = 404;
+    message = MESSAGE_ERROR.NOT_FOUND_BD;
+  }
+
+  response.status(statusCode);
+  response.json(message);
+});
+
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 app.listen(8080, () => {
   console.log('Server listening at port 8080...');
 });

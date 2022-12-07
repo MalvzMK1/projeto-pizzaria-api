@@ -7,10 +7,16 @@
 * Data modificação: 01/12/2022
 ************************************************************************************************* */
 
+<<<<<<< HEAD
 import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modules/config.js';
 import mensagemDao from '../model/DAO/mensagens.js';
 
 // funcao para retornar um registro baseado no id
+=======
+import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
+import mensagemDao from '../model/DAO/mensagens.js';
+
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 const buscarMensagem = async (id) => {
   const dadosMensagensJSON = {};
 
@@ -26,13 +32,19 @@ const buscarMensagem = async (id) => {
   return false;
 };
 
+<<<<<<< HEAD
 // funcao para gerar uma nova mensagem
+=======
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 const novaMensagem = async (mensagem) => {
   if (mensagem.nome === '' || mensagem.email === '' || mensagem.telefone === '' || mensagem.celular === '' || mensagem.mensagem === '' || mensagem.id_tipo_mensagem === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
   const novaMensagem = await mensagemDao.insertMensagem(mensagem);
+<<<<<<< HEAD
   // chama a função para inserir uma nova mensagem
+=======
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
   const result = novaMensagem;
 
   if (result) {
@@ -41,7 +53,10 @@ const novaMensagem = async (mensagem) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
+<<<<<<< HEAD
 // funcao para excluir um registro
+=======
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 const deletarMensagem = (id) => {
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
@@ -59,6 +74,7 @@ const deletarMensagem = (id) => {
   return { status: 404, message: MESSAGE_ERROR.NOT_FOUND_BD };
 };
 
+<<<<<<< HEAD
 // funcao para atualizar um registro
 const atualizarMensagem = (mensagem) => {
   // validacao para o id como campo obrigatorio
@@ -67,6 +83,12 @@ const atualizarMensagem = (mensagem) => {
   }
   // validacao de campos obrigatorios
   if (mensagem.nome === '' || mensagem.email === '' || mensagem.telefone === '' || mensagem.celular === '' || mensagem.mensagem === '' || mensagem.id_tipo_mensagem === '') {
+=======
+const atualizarMensagem = (mensagem) => {
+  if (mensagem.id === '' || mensagem.id === undefined) {
+    return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
+  } if (mensagem.nome === '' || mensagem.email === '' || mensagem.telefone === '' || mensagem.celular === '' || mensagem.mensagem === '' || mensagem.id_tipo_mensagem === '') {
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
 
@@ -79,10 +101,15 @@ const atualizarMensagem = (mensagem) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
+<<<<<<< HEAD
 // funcao para retornar todos os registros
 const listarMensagens = async () => {
   const mensagem = await mensagemDao.selectAllMensagens();
   // const mensagem = await selectAllMensagens();
+=======
+const listarMensagens = async () => {
+  const mensagem = await mensagemDao.selectAllMensagens();
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 
   if (mensagem) {
     return mensagem;

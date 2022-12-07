@@ -7,10 +7,16 @@
 * Data modificação: 01/12/2022
 ************************************************************************************************* */
 
+<<<<<<< HEAD
 import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modules/config.js';
 import ingredienteDao from '../model/DAO/ingredientes.js';
 
 // funcao para retornar um registro baseado no id
+=======
+import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
+import ingredienteDao from '../model/DAO/ingredientes.js';
+
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 const buscarIngrediente = async (id) => {
   const dadosIngredienteJSON = {};
 
@@ -18,7 +24,10 @@ const buscarIngrediente = async (id) => {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
   const dadosIngrediente = await ingredienteDao.selectByIdIngrediente(id);
+<<<<<<< HEAD
   // import { selectByIdProduto } from '../model/DAO/produtos.js';
+=======
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 
   if (dadosIngrediente) {
     dadosIngredienteJSON.ingrediente = dadosIngrediente;
@@ -27,14 +36,22 @@ const buscarIngrediente = async (id) => {
   return false;
 };
 
+<<<<<<< HEAD
 // funcao para gerar um novo produto
 const novoIngrediente = async (ingrediente) => {
   // validação de campos obrigatórios
+=======
+const novoIngrediente = async (ingrediente) => {
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
   if (ingrediente.nome === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
   const novoIngrediente = await ingredienteDao.insertIngrediente(ingrediente);
+<<<<<<< HEAD
   // chama a função para inserir um novo produto
+=======
+
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
   const result = novoIngrediente;
 
   if (result) {
@@ -43,7 +60,10 @@ const novoIngrediente = async (ingrediente) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
+<<<<<<< HEAD
 // funcao para excluir um registro
+=======
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 const deletarIngrediente = (id) => {
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
@@ -61,6 +81,7 @@ const deletarIngrediente = (id) => {
   return { status: 404, message: MESSAGE_ERROR.NOT_FOUND_BD };
 };
 
+<<<<<<< HEAD
 // funcao para atualizar um registro
 const atualizarIngrediente = (ingrediente) => {
   // validacao para o id como campo obrigatorio
@@ -68,6 +89,12 @@ const atualizarIngrediente = (ingrediente) => {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
   // validacao de campos obrigatorios
+=======
+const atualizarIngrediente = (ingrediente) => {
+  if (ingrediente.id === '' || ingrediente.id === undefined) {
+    return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
+  }
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
   if (ingrediente.nome === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
@@ -81,10 +108,15 @@ const atualizarIngrediente = (ingrediente) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
+<<<<<<< HEAD
 // funcao para retornar todos os registros
 const listarIngredientes = async () => {
   const ingrediente = await ingredienteDao.selectAllIngredientes();
   // const produto = await selectAllProdutos();
+=======
+const listarIngredientes = async () => {
+  const ingrediente = await ingredienteDao.selectAllIngredientes();
+>>>>>>> f2deb81e21d019fbf409c5f8b617657eef31934b
 
   if (ingrediente) {
     return ingrediente;
