@@ -8,29 +8,29 @@
 ************************************************************************************************* */
 
 import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
-import produtoDao from '../model/DAO/produtos.js';
+import mensagemDao from '../model/DAO/mensagens.js';
 
-const buscarProduto = async (id) => {
-  const dadosProdutoJSON = {};
+const buscarMensagem = async (id) => {
+  const dadosMensagensJSON = {};
 
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
-  const dadosProduto = await produtoDao.selectByIdProduto(id);
+  const dadosMensagens = await mensagemDao.selectByIdMensagem(id);
 
-  if (dadosProduto) {
-    dadosProdutoJSON.produto = dadosProduto;
-    return dadosProdutoJSON;
+  if (dadosMensagens) {
+    dadosMensagensJSON.mensagem = dadosMensagens;
+    return dadosMensagensJSON;
   }
   return false;
 };
 
-const novoProduto = async (produto) => {
-  if (produto.nome === '' || produto.imagem === '' || produto.tamanho === '' || produto.preco === '' || produto.desconto === null || produto.id_tipo_produto === '') {
+const novaMensagem = async (mensagem) => {
+  if (mensagem.nome === '' || mensagem.email === '' || mensagem.telefone === '' || mensagem.celular === '' || mensagem.mensagem === '' || mensagem.id_tipo_mensagem === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
-  const novoProduto = await produtoDao.insertProduto(produto);
-  const result = novoProduto;
+  const novaMensagem = await mensagemDao.insertMensagem(mensagem);
+  const result = novaMensagem;
 
   if (result) {
     return { status: 201, message: MESSAGE_SUCESS.INSERT_ITEM };
@@ -38,14 +38,14 @@ const novoProduto = async (produto) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
-const deletarProduto = (id) => {
+const deletarMensagem = (id) => {
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
-  const produto = buscarProduto(id);
-  if (produto) {
-    const deleteProduto = produtoDao.deleteProduto(id);
-    const result = deleteProduto;
+  const mensagem = buscarMensagem(id);
+  if (mensagem) {
+    const deleteMensagem = mensagemDao.deleteMensagem(id);
+    const result = deleteMensagem;
 
     if (result) {
       return { status: 201, message: MESSAGE_SUCESS.DELETE_ITEM };
@@ -55,16 +55,15 @@ const deletarProduto = (id) => {
   return { status: 404, message: MESSAGE_ERROR.NOT_FOUND_BD };
 };
 
-const atualizarProduto = (produto) => {
-  if (produto.id === '' || produto.id === undefined) {
+const atualizarMensagem = (mensagem) => {
+  if (mensagem.id === '' || mensagem.id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
-  }
-  if (produto.nome === '' || produto.imagem === '' || produto.tamanho === '' || produto.preco === '' || produto.desconto === null || produto.id_tipo_produto === '') {
+  } if (mensagem.nome === '' || mensagem.email === '' || mensagem.telefone === '' || mensagem.celular === '' || mensagem.mensagem === '' || mensagem.id_tipo_mensagem === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
 
-  const atualizarProduto = produtoDao.updateProduto(produto);
-  const result = atualizarProduto;
+  const atualizarMensagem = mensagemDao.updateMensagem(mensagem);
+  const result = atualizarMensagem;
 
   if (result) {
     return { status: 201, message: MESSAGE_SUCESS.UPDATE_ITEM };
@@ -72,21 +71,21 @@ const atualizarProduto = (produto) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
-const listarProdutos = async () => {
-  const produto = await produtoDao.selectAllProdutos();
+const listarMensagens = async () => {
+  const mensagem = await mensagemDao.selectAllMensagens();
 
-  if (produto) {
-    return produto;
+  if (mensagem) {
+    return mensagem;
   }
   return false;
 };
 
-const controllerProduto = {
-  listarProdutos,
-  novoProduto,
-  deletarProduto,
-  atualizarProduto,
-  buscarProduto,
+const controllerMensagem = {
+  listarMensagens,
+  novaMensagem,
+  deletarMensagem,
+  atualizarMensagem,
+  buscarMensagem,
 };
 
-export default controllerProduto;
+export default controllerMensagem;

@@ -1,17 +1,17 @@
-/** **************************************************************************************************
+/** ************************************************************************************************
 * Objetivo: Arquivo responsável pela manipulação de dados com o BD (insert, update, delet e select)
-* Autor: Larissa Nunes
+* Autor: Larissa Nunes e Matheus Alves
 * Versão: 1.0
 * Data criação: 06/10/2022
 * Data modificação: 01/12/2022
-*************************************************************************************************** */
+************************************************************************************************* */
 
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
-
 const insertProduto = async (produto) => {
   try {
+    const prisma = new PrismaClient();
+
     const sql = `insert into tbl_produto (
         nome,
         imagem,
@@ -28,8 +28,8 @@ const insertProduto = async (produto) => {
             '${produto.desconto}',
             '${produto.id_tipo_produto}'
             )`;
-
     const result = await prisma.$executeRawUnsafe(sql);
+
     if (result) {
       return true;
     }
@@ -41,12 +41,14 @@ const insertProduto = async (produto) => {
 
 const updateProduto = async (produto) => {
   try {
+    const prisma = new PrismaClient();
+
     const sql = `update tbl_produto set
-         nome = '${produto.nome}',
-         imagem = '${produto.imagem}',
-         tamanho = '${produto.tamanho}', 
-         preco = '${produto.preco}', 
-         desconto = '${produto.desconto}',
+            nome = '${produto.nome}',
+            imagem = '${produto.imagem}',
+            tamanho = '${produto.tamanho}', 
+            preco = '${produto.preco}', 
+            desconto = '${produto.desconto}',
          
          where id = '${produto.id}'`;
 
@@ -64,6 +66,8 @@ const updateProduto = async (produto) => {
 
 const deleteProduto = async (id) => {
   try {
+    const prisma = new PrismaClient();
+
     const sql = `delete from tbl_produto 
         where id = '${id}'`;
 
@@ -78,14 +82,16 @@ const deleteProduto = async (id) => {
 };
 
 const selectAllProdutos = async () => {
+  const prisma = new PrismaClient();
+
   const sql = `select cast(id as float) as 
-    id, 
-    nome, 
-    imagem, 
-    tamanho, 
-    preco, 
-    desconto, 
-    id_tipo_produto
+        id, 
+        nome, 
+        imagem, 
+        tamanho, 
+        preco, 
+        desconto, 
+        id_tipo_produto
     from tbl_produto order by id desc`;
 
   const rsProdutos = await prisma.$queryRawUnsafe(sql);
@@ -97,6 +103,8 @@ const selectAllProdutos = async () => {
 };
 
 const selectByIdProduto = async (id) => {
+  const prisma = new PrismaClient();
+
   const sql = `select cast(id as float) as 
         id, 
         nome, 
@@ -104,9 +112,8 @@ const selectByIdProduto = async (id) => {
         tamanho, 
         preco, 
         desconto, 
-        id_tipo_produto, 
-        from tbl_produto
-        where id = ${id}`;
+        id_tipo_produto 
+    from tbl_produto where id = ${id}`;
 
   const rsProdutos = await prisma.$queryRawUnsafe(sql);
 

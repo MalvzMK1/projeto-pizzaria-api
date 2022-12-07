@@ -8,29 +8,30 @@
 ************************************************************************************************* */
 
 import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modulo/config.js';
-import produtoDao from '../model/DAO/produtos.js';
+import ingredienteDao from '../model/DAO/ingredientes.js';
 
-const buscarProduto = async (id) => {
-  const dadosProdutoJSON = {};
+const buscarIngrediente = async (id) => {
+  const dadosIngredienteJSON = {};
 
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
-  const dadosProduto = await produtoDao.selectByIdProduto(id);
+  const dadosIngrediente = await ingredienteDao.selectByIdIngrediente(id);
 
-  if (dadosProduto) {
-    dadosProdutoJSON.produto = dadosProduto;
-    return dadosProdutoJSON;
+  if (dadosIngrediente) {
+    dadosIngredienteJSON.ingrediente = dadosIngrediente;
+    return dadosIngredienteJSON;
   }
   return false;
 };
 
-const novoProduto = async (produto) => {
-  if (produto.nome === '' || produto.imagem === '' || produto.tamanho === '' || produto.preco === '' || produto.desconto === null || produto.id_tipo_produto === '') {
+const novoIngrediente = async (ingrediente) => {
+  if (ingrediente.nome === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
-  const novoProduto = await produtoDao.insertProduto(produto);
-  const result = novoProduto;
+  const novoIngrediente = await ingredienteDao.insertIngrediente(ingrediente);
+
+  const result = novoIngrediente;
 
   if (result) {
     return { status: 201, message: MESSAGE_SUCESS.INSERT_ITEM };
@@ -38,14 +39,14 @@ const novoProduto = async (produto) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
-const deletarProduto = (id) => {
+const deletarIngrediente = (id) => {
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
-  const produto = buscarProduto(id);
-  if (produto) {
-    const deleteProduto = produtoDao.deleteProduto(id);
-    const result = deleteProduto;
+  const ingrediente = buscarIngrediente(id);
+  if (ingrediente) {
+    const deleteIngrediente = ingredienteDao.deleteIngrediente(id);
+    const result = deleteIngrediente;
 
     if (result) {
       return { status: 201, message: MESSAGE_SUCESS.DELETE_ITEM };
@@ -55,16 +56,16 @@ const deletarProduto = (id) => {
   return { status: 404, message: MESSAGE_ERROR.NOT_FOUND_BD };
 };
 
-const atualizarProduto = (produto) => {
-  if (produto.id === '' || produto.id === undefined) {
+const atualizarIngrediente = (ingrediente) => {
+  if (ingrediente.id === '' || ingrediente.id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
-  if (produto.nome === '' || produto.imagem === '' || produto.tamanho === '' || produto.preco === '' || produto.desconto === null || produto.id_tipo_produto === '') {
+  if (ingrediente.nome === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
 
-  const atualizarProduto = produtoDao.updateProduto(produto);
-  const result = atualizarProduto;
+  const atualizarIngrediente = ingredienteDao.updateIngrediente(ingrediente);
+  const result = atualizarIngrediente;
 
   if (result) {
     return { status: 201, message: MESSAGE_SUCESS.UPDATE_ITEM };
@@ -72,21 +73,21 @@ const atualizarProduto = (produto) => {
   return { status: 500, message: MESSAGE_ERROR.INTERNAL_ERROR_DB };
 };
 
-const listarProdutos = async () => {
-  const produto = await produtoDao.selectAllProdutos();
+const listarIngredientes = async () => {
+  const ingrediente = await ingredienteDao.selectAllIngredientes();
 
-  if (produto) {
-    return produto;
+  if (ingrediente) {
+    return ingrediente;
   }
   return false;
 };
 
-const controllerProduto = {
-  listarProdutos,
-  novoProduto,
-  deletarProduto,
-  atualizarProduto,
-  buscarProduto,
+const controllerIngredientes = {
+  listarIngredientes,
+  novoIngrediente,
+  deletarIngrediente,
+  atualizarIngrediente,
+  buscarIngrediente,
 };
 
-export default controllerProduto;
+export default controllerIngredientes;

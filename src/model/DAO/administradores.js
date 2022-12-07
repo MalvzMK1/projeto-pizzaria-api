@@ -1,13 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
-
 const insertAdministrador = async (administrador) => {
   try {
+    const prisma = new PrismaClient();
+
     const sql = `insert into tbl_administrador (
-        nome,
-        email,
-        senha
+            nome,
+            email,
+            senha
         )
         values (
             '${administrador.nome}',
@@ -27,10 +27,12 @@ const insertAdministrador = async (administrador) => {
 
 const updateAdministrador = async (administrador) => {
   try {
+    const prisma = new PrismaClient();
+
     const sql = `update tbl_administrador set
-         nome = '${administrador.nome}',
-         email = '${administrador.imagem}',
-         senha = '${administrador.tamanho}'
+            nome = '${administrador.nome}',
+            email = '${administrador.imagem}',
+            senha = '${administrador.tamanho}'
          
          where id = '${administrador.id}'`;
 
@@ -46,6 +48,8 @@ const updateAdministrador = async (administrador) => {
 
 const deleteAdministrador = async (id) => {
   try {
+    const prisma = new PrismaClient();
+
     const sql = `delete from tbl_administrador 
         where id = '${id}'`;
 
@@ -60,11 +64,13 @@ const deleteAdministrador = async (id) => {
 };
 
 const selectAllAdministradores = async () => {
+  const prisma = new PrismaClient();
+
   const sql = `select cast(id as float) as 
-    id, 
-    nome, 
-    email, 
-    senha, 
+        id, 
+        nome, 
+        email, 
+        senha
     from tbl_administrador order by id desc`;
 
   const rsAdministrador = await prisma.$queryRawUnsafe(sql);
@@ -76,13 +82,14 @@ const selectAllAdministradores = async () => {
 };
 
 const selectByIdAdministrador = async (id) => {
+  const prisma = new PrismaClient();
+
   const sql = `select cast(id as float) as 
-        id, 
-        nome, 
-        email, 
-        senha,  
-        from tbl_administrador
-        where id = ${id}`;
+            id, 
+            nome, 
+            email, 
+            senha,  
+        from tbl_administrador where id = ${id}`;
 
   const rsAdministrador = await prisma.$queryRawUnsafe(sql);
 
