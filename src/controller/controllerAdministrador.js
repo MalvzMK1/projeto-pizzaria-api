@@ -86,10 +86,12 @@ const buscarAdministrador = async (id) => {
   return false;
 };
 
-export default {
+const controllerAdministrador = {
   listarAdministradores,
   novoAdministrador,
   deletarAdministrador,
   atualizarAdministrador,
   buscarAdministrador,
 };
+
+export default controllerAdministrador;

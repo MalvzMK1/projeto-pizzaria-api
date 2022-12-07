@@ -8,34 +8,32 @@
 ************************************************************************************************* */
 
 import { MESSAGE_ERROR, MESSAGE_SUCESS } from '../modules/config.js';
-import produtoDao from '../model/DAO/produtos.js';
+import mensagemDao from '../model/DAO/mensagens.js';
 
 // funcao para retornar um registro baseado no id
-const buscarProduto = async (id) => {
-  const dadosProdutoJSON = {};
+const buscarMensagem = async (id) => {
+  const dadosMensagensJSON = {};
 
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
-  const dadosProduto = await produtoDao.selectByIdProduto(id);
-  // import { selectByIdProduto } from '../model/DAO/produtos.js';
+  const dadosMensagens = await mensagemDao.selectByIdMensagem(id);
 
-  if (dadosProduto) {
-    dadosProdutoJSON.produto = dadosProduto;
-    return dadosProdutoJSON;
+  if (dadosMensagens) {
+    dadosMensagensJSON.mensagem = dadosMensagens;
+    return dadosMensagensJSON;
   }
   return false;
 };
 
-// funcao para gerar um novo produto
-const novoProduto = async (produto) => {
-  // validação de campos obrigatórios
-  if (produto.nome === '' || produto.imagem === '' || produto.tamanho === '' || produto.preco === '' || produto.desconto === null || produto.id_tipo_produto === '') {
+// funcao para gerar uma nova mensagem
+const novaMensagem = async (mensagem) => {
+  if (mensagem.nome === '' || mensagem.email === '' || mensagem.telefone === '' || mensagem.celular === '' || mensagem.mensagem === '' || mensagem.id_tipo_mensagem === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
-  const novoProdutoResposta = await produtoDao.insertProduto(produto);
-  // chama a função para inserir um novo produto
-  const result = novoProdutoResposta;
+  const novaMensagem = await mensagemDao.insertMensagem(mensagem);
+  // chama a função para inserir uma nova mensagem
+  const result = novaMensagem;
 
   if (result) {
     return { status: 201, message: MESSAGE_SUCESS.INSERT_ITEM };
@@ -44,14 +42,14 @@ const novoProduto = async (produto) => {
 };
 
 // funcao para excluir um registro
-const deletarProduto = (id) => {
+const deletarMensagem = (id) => {
   if (id === '' || id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
-  const produto = buscarProduto(id);
-  if (produto) {
-    const deleteProduto = produtoDao.deleteProduto(id);
-    const result = deleteProduto;
+  const mensagem = buscarMensagem(id);
+  if (mensagem) {
+    const deleteMensagem = mensagemDao.deleteMensagem(id);
+    const result = deleteMensagem;
 
     if (result) {
       return { status: 201, message: MESSAGE_SUCESS.DELETE_ITEM };
@@ -62,18 +60,18 @@ const deletarProduto = (id) => {
 };
 
 // funcao para atualizar um registro
-const atualizarProduto = (produto) => {
+const atualizarMensagem = (mensagem) => {
   // validacao para o id como campo obrigatorio
-  if (produto.id === '' || produto.id === undefined) {
+  if (mensagem.id === '' || mensagem.id === undefined) {
     return { status: 400, message: MESSAGE_ERROR.REQUIRED_ID };
   }
   // validacao de campos obrigatorios
-  if (produto.nome === '' || produto.imagem === '' || produto.tamanho === '' || produto.preco === '' || produto.desconto === null || produto.id_tipo_produto === '') {
+  if (mensagem.nome === '' || mensagem.email === '' || mensagem.telefone === '' || mensagem.celular === '' || mensagem.mensagem === '' || mensagem.id_tipo_mensagem === '') {
     return { status: 404, message: MESSAGE_ERROR.REQUIRED_FIELDS };
   }
 
-  const atualizarProduto = produtoDao.updateProduto(produto);
-  const result = atualizarProduto;
+  const atualizarMensagem = mensagemDao.updateMensagem(mensagem);
+  const result = atualizarMensagem;
 
   if (result) {
     return { status: 201, message: MESSAGE_SUCESS.UPDATE_ITEM };
@@ -82,22 +80,22 @@ const atualizarProduto = (produto) => {
 };
 
 // funcao para retornar todos os registros
-const listarProdutos = async () => {
-  const produto = await produtoDao.selectAllProdutos();
-  // const produto = await selectAllProdutos();
+const listarMensagens = async () => {
+  const mensagem = await mensagemDao.selectAllMensagens();
+  // const mensagem = await selectAllMensagens();
 
-  if (produto) {
-    return produto;
+  if (mensagem) {
+    return mensagem;
   }
   return false;
 };
 
-const controllerProduto = {
-  listarProdutos,
-  novoProduto,
-  deletarProduto,
-  atualizarProduto,
-  buscarProduto,
+const controllerMensagem = {
+  listarMensagens,
+  novaMensagem,
+  deletarMensagem,
+  atualizarMensagem,
+  buscarMensagem,
 };
 
-export default controllerProduto;
+export default controllerMensagem;
